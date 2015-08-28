@@ -1,0 +1,59 @@
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: ci-jenkins
+    service: ci
+    type: jenkins
+  name: ci-jenkins-slave-v0
+spec:
+  replicas: 1
+  selector:
+    name: ci-jenkins-slave
+    service: ci
+    type: jenkins-slave
+    version: v0
+  template:
+    metadata:
+      labels:
+        name: ci-jenkins-slave
+        service: ci
+        type: jenkins-slave
+        version: v0
+    spec:
+      containers:
+        -
+          image: quay.io/ukhomeofficedigital/jenkins-slave-docker1.6:v0.1.0
+          args:
+            - "jenkins-slave"
+            - "http://jenkins-endpoint"
+            - "nodename-here"
+          env:
+            -
+              name: AWS_ACCESS_KEY_ID
+              value: IDIDIDIDIDIDIDIDID
+            -
+              name: AWS_SECRET_ACCESS_KEY
+              value: SECRETSECRETSECRETSECRET
+            -
+              name: AWS_KEY_REGION
+              value: am-zone-r1
+            -
+              name: SECRETS_BUCKET
+              value: secretbucket
+          imagePullPolicy: Always
+          name: ci-jenkins-slave
+          resources:
+            limits:
+              memory: 2Gi
+          volumeMounts:
+            -
+              mountPath: /var/run/docker.sock
+              name: docker-sock
+      restartPolicy: Always
+      volumes:
+        -
+          hostPath:
+            path: /var/run/docker.sock
+          name: docker-sock
