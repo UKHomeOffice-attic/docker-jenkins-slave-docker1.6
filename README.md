@@ -86,6 +86,19 @@ ams s3 cp dockercfg.encrypted s3://yourbucket/dockercfg.encrypted
   the bucket defined in `SECRETS_BUCKET`
 * `AWS_SECRET_ACCESS_KEY` - The same users Secret Access Key.
 
+### Useful Paths
+
+You may choose to mount your Amazon secrets in a file that looks like this at 
+`/root/.aws/credentials` 
+
+```
+[default]
+aws_access_key_id = IDIDIDIDIDIDIDIDID
+aws_secret_access_key = SECRETSECRETSECRETSECRET
+```
+
+Rather than via your environment variables.
+
 ### Volumes
 
 * `/var/run/docker.sock` - You will need to mount the docker socket on the host to `/var/run/docker.sock` in order to be 
