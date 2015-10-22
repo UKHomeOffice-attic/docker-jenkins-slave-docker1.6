@@ -1,5 +1,7 @@
 # Jenkins Slave Docker Container: Docker 1.6.1
 
+[![Build Status](https://travis-ci.org/UKHomeOffice/docker-jenkins-slave-docker1.6.svg?branch=master)](https://travis-ci.org/UKHomeOffice/docker-jenkins-slave-docker1.6)
+
 This container is an Jenkins slave with Docker 1.6.1. It extends the 
 [Jenkins Slave Docker Container][1] by adding Docker 1.6.1.
 
