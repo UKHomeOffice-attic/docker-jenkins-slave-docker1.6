@@ -109,13 +109,12 @@ Rather than via your environment variables.
 
 This container has two modes of operation, the first is jenkins slave mode.
 
-In this mode you pass the container 3 parameters.
+In this mode you pass the container 3 parameters (or 4 if you need to provide a secret).
 
 * `jenkins-slave` - To tell the container to run as a jenkins slave
 * `http://jenkins-url:5321` - Jenkins URL
 * `my-node` - The name you've given the node
-
-This looks look a bit like this in docker
+* `secret` (optional) - The Jenkins secret
 
 ```shell
 docker run -v /var/run/docker.sock:/var/run/docker.sock \
@@ -123,11 +122,27 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
            -e "AWS_SECRET_ACCESS_KEY=SECRETSECRETSECRETSECRET" \
            -e "AWS_KEY_REGION=am-zone-r1" \
            -e "SECRETS_BUCKET=secretbucket" \
-           quay.io/ukhomeofficedigital/jenkins-slave-docker1.6:v0.1.0 \
+           quay.io/ukhomeofficedigital/jenkins-slave-docker1.6:v0.2.0 \
            jenkins-slave \
            http://jenkins-url:5321 \
            my-node
 ```
+
+Or if they need to provide a secret
+
+```shell
+docker run -v /var/run/docker.sock:/var/run/docker.sock \
+           -e "AWS_ACCESS_KEY_ID=IDIDIDIDIDIDIDIDID" \
+           -e "AWS_SECRET_ACCESS_KEY=SECRETSECRETSECRETSECRET" \
+           -e "AWS_KEY_REGION=am-zone-r1" \
+           -e "SECRETS_BUCKET=secretbucket" \
+           quay.io/ukhomeofficedigital/jenkins-slave-docker1.6:v0.2.0 \
+           jenkins-slave \
+           http://jenkins-url:5321 \
+           my-node \
+           secret-secret
+```
+
 
 The other mode of operation is simply to drop you into a bash shell on the container. For this just
 run the command you want to execute as a parameter as normal. 
@@ -140,7 +155,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
            -e "AWS_SECRET_ACCESS_KEY=SECRETSECRETSECRETSECRET" \
            -e "AWS_KEY_REGION=am-zone-r1" \
            -e "SECRETS_BUCKET=secretbucket" \
-           quay.io/ukhomeofficedigital/jenkins-slave-docker1.6:v0.1.0 \
+           quay.io/ukhomeofficedigital/jenkins-slave-docker1.6:v0.2.0 \
            bash
 ```
 

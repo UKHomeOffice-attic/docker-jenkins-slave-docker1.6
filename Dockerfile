@@ -1,4 +1,4 @@
-FROM quay.io/ukhomeofficedigital/jenkins-slave:v0.1.0
+FROM quay.io/ukhomeofficedigital/jenkins-slave:v0.2.0
 
 COPY docker.repo /etc/yum.repos.d/docker.repo
 RUN yum install -y epel-release && \
